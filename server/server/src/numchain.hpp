@@ -1,5 +1,4 @@
-#ifndef _NUMCHAIN_H
-#define _NUMCHAIN_H
+#pragma once
 
 // Defines the length of the chain.
 const int CHAIN_SIZE = 5;
@@ -15,5 +14,3 @@ class NumChain {
     int _buffer[CHAIN_SIZE];
     void FillChain();
 };
-
-#endif

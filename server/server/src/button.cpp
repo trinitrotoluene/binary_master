@@ -33,8 +33,10 @@ void Button::UpdateState() {
                 break;
             case ButtonState::Released:
                 state = ButtonState::Neutral;
+                break;
             default:
                 state = ButtonState::Released;
+                break;
         }
     }
 }

@@ -14,6 +14,4 @@ void setup() {
 void loop() {
     for (int i = 0; i < BTN_COUNT; i++)
         BUTTONS[i].UpdateState();
-
-    
 }

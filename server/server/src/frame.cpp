@@ -1,7 +1,7 @@
-#include "data_frame.hpp"
+#include "frame.hpp"
 
 Frame Frame::Parse(byte buffer[], int length = 2 /*TODO this parameter is not needed.*/) {
-    if (length > 2 || length < 1) throw;
+    if (length > 2 || length < 1) return;
 
     bool isControl = buffer[0] & FrameType::Control;
 
@@ -13,7 +13,7 @@ Frame Frame::Parse(byte buffer[], int length = 2 /*TODO this parameter is not ne
             case ControlCommand::Stop:
                 return Frame(ControlCommand::Stop, 0);
             default:
-                throw;
+                return;
         }
     }
     else {

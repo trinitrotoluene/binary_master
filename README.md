@@ -18,11 +18,10 @@ Client
 
 ## Data Framing
 
-| 0                            | 1             | 2                   | 3        | 4        | 5        | 6        | 7        |
-| :--------------------------- | ------------- | ------------------- | -------- | -------- | -------- | -------- | -------- |
-| Control Flag                 | Start(SERVER) | Stop(SERVER/CLIENT) | RESERVED | RESERVED | RESERVED | RESERVED | RESERVED |
-| *If control flag is not set* |               |                     |          |          |          |          |          |
+| 0                   | 1              | 2    | 3        | 4        | 5        | 6        | 7        |
+| :------------------ | -------------- | ---- | -------- | -------- | -------- | -------- | -------- |
+| Control / Player ID | Start / Answer | Stop | RESERVED | RESERVED | RESERVED | RESERVED | RESERVED |
 
 - If the Control bit is set, the rest of the byte should be interpreted as a bit field and all subsequent bytes (if any) of the message should be interpreted as an integer parameter to the corresponding control code.
 - If the Control bit is NOT set, the next 3 bits of the message are interpreted as a Player ID
-  - The remaining 4 bits should be checked for their corresponding 
+  - The remaining 4 bits should be checked for their corresponding

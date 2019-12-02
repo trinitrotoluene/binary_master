@@ -7,6 +7,8 @@ Display::Display(SReg* sreg) {
     this->_sreg = sreg;
     this->_size = 8;
     this->_currentNumber = -1;
+
+    this->_sreg->Init();
 }
 
 // Output a number to the display in binary form.

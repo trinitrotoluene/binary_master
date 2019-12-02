@@ -7,3 +7,5 @@
 #include "button.hpp"
 #include "array.hpp"
 #include "frame.hpp"
+#include "scoremanager.hpp"
+#include "tones.hpp"

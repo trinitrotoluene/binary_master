@@ -9,10 +9,11 @@ const int SREG_DATA = 13;
 const int SREG_LATCH = 12;
 const int SREG_CLOCK = 11;
 
-const int VICTORY_PIN = 7;
+const int VICTORY_PIN = 6;
 
 const int BTN_COUNT = 3;
 const int BTN_START_PIN = 2;
+const int DURATION_OFFSET = 500;
 
 // When starting out we're going to be ingesting user input.
 State _state = State::Ingest;
@@ -31,7 +32,6 @@ Button BUTTONS[BTN_COUNT];
 byte _currentTarget = 0;
 
 uint64_t endTime;
-const int ROUND_DURATION = 1000;
 
 void setup() {
     Serial.begin(9600);
@@ -42,12 +42,7 @@ void setup() {
     for (int i = 0; i < BTN_COUNT; i++)
         BUTTONS[i].Bind(i + BTN_START_PIN);
 
-    // Run init code for the score displayer.
     ScoreManager::Configure();
-    ScoreManager::Reset();
-    
-    ScoreManager::Increment(0);
-    ScoreManager::Increment(0);
 }
 
 void loop() {
@@ -72,7 +67,7 @@ void loop() {
     else if (_state == State::Running) {
         if (millis() > endTime) {
             send_next_number();
-            endTime = millis() + ROUND_DURATION;
+            endTime = millis() + analogRead(5) + DURATION_OFFSET;
         }
     }
 }
@@ -145,11 +140,12 @@ void handle_player_frame(Frame frame) {
                 // Check whether this was the last LED
                 bool playerWon = ScoreManager::Increment(frame.Player.PlayerId);
                 if (playerWon) {
-                    on_victory();
+                    full_reset();
                 }
                 else {
                     // Already incremented score, so just play the tone and move to the next round.
                     Tone::Correct();
+                    next_round();
                 }
             }
             else {
@@ -163,13 +159,17 @@ void handle_player_frame(Frame frame) {
     }
 }
 
-void on_victory() {
-    // Play the victory tone, reset our target, set the state back to Ingest for the next game.
-    _victoryLed.SetState(HIGH);
-
-    Tone::Victory();
+void next_round() {
     _currentTarget = 0;
     _state = State::Ingest;
+}
 
-    _victoryLed.SetState(LOW);
+void full_reset() {
+    digitalWrite(VICTORY_PIN, HIGH);
+    Tone::Victory();
+    Tone::Victory();
+    digitalWrite(VICTORY_PIN, LOW);
+    ScoreManager::Reset();
+    _currentTarget = 0;
+    _state = State::Ingest;
 }

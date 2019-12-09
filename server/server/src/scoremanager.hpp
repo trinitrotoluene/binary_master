@@ -3,8 +3,16 @@
 #include "led.hpp"
 #include "sreg.hpp"
 
+const int SC_MAX_PLAYERS = 2;
+const int SC_LED_PER_USR = 4;
+
+const int SC_SREG_DATA = 10;
+const int SC_SREG_LATCH = 9;
+const int SC_SREG_CLOCK = 8;
+
 class PlayerScoreIndicator {
     public:
+    PlayerScoreIndicator();
     PlayerScoreIndicator(uint32_t);
     bool Increment();
     void Decrement();
@@ -21,4 +29,7 @@ class ScoreManager {
     static void Decrement(uint8_t);
     static void Reset();
     static void Configure();
+    static SReg Sreg;
+    private:
+    static PlayerScoreIndicator _indicators[SC_MAX_PLAYERS];
 };

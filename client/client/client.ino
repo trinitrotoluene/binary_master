@@ -11,6 +11,7 @@ byte currentNum = 1;
 byte buffer[BUF_SIZE];
 
 Button BUTTONS[BTN_COUNT];
+bool roundOpen = false;
 
 void setup() {
     Serial.begin(9600);
@@ -33,13 +34,14 @@ void loop() {
         }
     }
 
-    if (pid == -1)
+    if (pid == -1 || !roundOpen)
         return;
 
     // If the player got it right, send an answer frame (true).
     if (target == currentNum) {
         auto playerData = PlayerFrame(pid, PlayerCommand::Answer);
         Frame::WriteToSerial(playerData, true);
+        roundOpen = false;
     }
     // If the player got it wrong, send an answer frame (false).
     else {
@@ -73,5 +75,6 @@ void handle_control_frame(Frame frame) {
             target = frame.Value;
         case ControlCommand::NextNumber:
             currentNum = frame.Value;
+            roundOpen = true;
     }
 }

@@ -4,7 +4,7 @@
  * https://github.bath.ac.uk/cm10194-cw1-prm45-dm986/arduino-code/blob/master/game/src/button.cpp
 */
 
-#include "button.hpp";
+#include "button.hpp"
 
 void Button::Bind(int pin) {
     pinMode(pin, INPUT);

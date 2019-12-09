@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include "numchain.hpp"
 
+NumChain::NumChain() {
+}
+
 // Populate a number chain with a provided target number, and min/max size for other generated numbers.
 NumChain::NumChain(int target, int min, int max) {
     this->_target = target;
@@ -24,6 +27,13 @@ int NumChain::Next() {
     _pos++;
 
     return num;
+}
+
+int NumChain::GetCurrentNumber() {
+    if (this->_pos == 0) 
+        return this->_buffer[_pos];
+    else 
+        return this->_buffer[_pos - 1];
 }
 
 void NumChain::FillChain() {

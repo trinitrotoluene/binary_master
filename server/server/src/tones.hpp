@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Arduino.h>
+
 class Tone {
     public:
     static void Beep();
@@ -8,3 +10,5 @@ class Tone {
     static void Correct();
     static void Wrong();
 };
+
+void tone_wait(uint32_t, uint32_t);

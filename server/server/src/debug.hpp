@@ -13,7 +13,7 @@ class Debug {
 
 // Comment this out to globally disable Debugging for the application.
 // TODO: This MUST be disabled before submitting!
-#define ENABLE_DEBUG
+//#define ENABLE_DEBUG
 
 // By default Debug::printLn will no-op, allowing us to use serial tx/rx without having to remove calls to this method
 // and instead just removing a #define.

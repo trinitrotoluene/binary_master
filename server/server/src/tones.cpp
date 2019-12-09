@@ -1,5 +1,4 @@
 #include "tones.hpp"
-#include <Arduino.h>
 
 const int PIEZO_PIN = 5;
 
@@ -23,15 +22,21 @@ void Tone::GameStart() {
 }
 
 void Tone::Victory() {
-
+    tone_wait(TONE_HIGH, SHORT);
+    delay(SHORT);
+    tone_wait(TONE_HIGH, SHORT);
+    delay(SHORT);
+    tone_wait(TONE_HIGH, SHORT);
 }
 
 void Tone::Correct() {
-
+    tone_wait(TONE_MEDIUM, SHORT);
+    tone_wait(TONE_HIGH, LONG);
 }
 
 void Tone::Wrong() {
-
+    tone_wait(TONE_MEDIUM, SHORT);
+    tone_wait(TONE_LOW, LONG);
 }
 
 void tone_wait(uint32_t frequency, uint32_t duration) {

@@ -42,6 +42,7 @@ void ScoreManager::Decrement(uint8_t pid) {
 
 PlayerScoreIndicator::PlayerScoreIndicator(uint32_t offset) {
     this->_offset = offset;
+    this->_currentScore = 0;
 }
 
 void PlayerScoreIndicator::Reset() {
